@@ -1,0 +1,22 @@
+.usertable {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 40px 4vw 100px 4vw;
+    width: 91vw !important;
+    
+}
+
+.flex-space-around {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.disable-button {
+    color: #fff !important;
+    margin-top: 4px !important;
+}
+
+.no-button {
+    margin-top: 4px !important;
+}
