@@ -6,7 +6,6 @@
     "configurations": [
         {
             "name": "Attach to Chrome",
-            "url": "http://localhost:3000/",
             "request": "launch",
             "type": "pwa-chrome",
             "webRoot": "${workspaceFolder}"
