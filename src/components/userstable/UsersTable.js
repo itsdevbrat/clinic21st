@@ -19,6 +19,7 @@ const UsersTable = props => {
     const [page, setPage] = useState(0);
     const [query, setQuery] = useState('');
     const [loader, setLoader] = useState(false);
+    const [forceUpdateCounter, setForceUpdateCounter] = useState(0);
 
     const getUsers = (page) => {
         setLoader(true)
@@ -32,6 +33,8 @@ const UsersTable = props => {
                         userName: user.userName,
                         password: user.password,
                         phoneNumber: user.phoneNumber,
+                        email: user.email,
+                        enabled: user.enabled,
                         createdDate: user.createdDate
                     }
                 }))
@@ -46,9 +49,9 @@ const UsersTable = props => {
     const updateUser = (user) => {
         update(user)
             .then(res => {
-                console.log(res)
+                console.log("then",res)
                 console.log(res.data)
-                setPage(page)
+                setForceUpdateCounter(forceUpdateCounter + 1)
             })
             .catch(err => {
                 console.log(err)
@@ -98,8 +101,11 @@ const UsersTable = props => {
         <>
             <TableContainer component={Paper} className='usertable'>
 
-                <TextField variant='outlined' name="search" type="text" placeholder="Name, Phone or Email" margin='dense'  onChange={handleChange} value={query}/> 
-                <Button variant="outlined" onClick={searchUser} style={{margin: '10px'}}>Search</Button>
+                <TextField variant='outlined' name="search" type="text"
+                    placeholder="Name, Phone or Email" margin='dense'
+                    style={{ marginStart: '1vw !important' }}
+                    onChange={handleChange} value={query} />
+                <Button variant="outlined" onClick={searchUser} style={{ margin: '10px' }}>Search</Button>
 
                 <Table >
 
@@ -133,11 +139,12 @@ const UsersTable = props => {
                                     <TableCell>{row.createdDate.split('T')[0]}</TableCell>
                                     <TableCell>{row.userName} </TableCell>
                                     <TableCell>{row.password}</TableCell>
-                                    {row.enabled && <DisableButton onClick={() => {
-                                        row.enabled = false
-                                        updateUser(row)
-                                    }} />}
-                                    {!row.enabled && <Button color="primary" className='disable-button'>Disabled</Button>}
+                                    {row.enabled
+                                        ? <DisableButton onClick={() => {
+                                            row.enabled = false
+                                            updateUser(row)
+                                        }} />
+                                        : <Button color="primary" className='disable-button'>Disabled</Button>}
 
                                 </TableRow>
 
@@ -149,7 +156,7 @@ const UsersTable = props => {
 
                 </Table>
 
-                {loader &&<Loader />}
+                {loader && <Loader />}
 
                 <div className='flex-space-around'>
                     <Button variant="outlined" onClick={prevPage}>Previous</Button>
