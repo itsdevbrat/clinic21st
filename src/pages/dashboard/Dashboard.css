@@ -86,7 +86,7 @@
 
 .padded-box {
     border: solid 1px var(--loginSubmitBackgroundColor);
-    padding: 20px 2vw;
+    padding: 2vw 2vw;
     background-color: #fff;
     border-radius: 5px;
     font-size: 1.1em;

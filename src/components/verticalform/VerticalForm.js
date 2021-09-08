@@ -18,7 +18,7 @@ const validationSchema = yup.object({
 });
 
 
-const VerticalForm = props => {
+const VerticalForm = ({ toggleForm }) => {
 
     const [loader, setLoader] = useState(false)
     const [saveVerticalError, setSaveVerticalError] = useState()
@@ -31,9 +31,11 @@ const VerticalForm = props => {
         savev(values, { 'Authorization': jwt })
             .then(response => {
                 console.log(response)
-                response.status === 200
-                    ? setLoader(false)
-                    : setSaveVerticalError('Something went wrong!')
+                if (response.status === 200)
+                    toggleForm()
+                else
+                    setSaveVerticalError('Something went wrong!')
+
                 setLoader(false)
                 setSubmit(true)
             })
@@ -44,6 +46,7 @@ const VerticalForm = props => {
                     : 'Something went wrong! Contact Administrator')
                 setLoader(false)
                 setSubmit(true)
+                toggleForm()
             })
         formik.setSubmitting(false)
     }
@@ -67,7 +70,7 @@ const VerticalForm = props => {
             <TextField name="driveLink" type="text" placeholder="Google drive folder link" margin='dense' variant='outlined'
                 value={formik.values.driveLink} onChange={formik.handleChange}
                 error={formik.touched.driveLink && Boolean(formik.errors.driveLink)}
-                helperText={formik.errors.driveLink === '' ? '' : formik.errors.driveLink}  />
+                helperText={formik.errors.driveLink === '' ? '' : formik.errors.driveLink} />
             {loader && <Loader />}
             {
                 submit &&

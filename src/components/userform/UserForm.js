@@ -23,28 +23,16 @@ const validationSchema = yup.object({
         .required('Email is required'),
 });
 
-const UserForm = ({ toggleUserForm }) => {
+const UserForm = ({ toggleForm }) => {
 
     const [saveUserError, setSaveUserError] = useState([])
     const [jwt] = useLocalStorage('auth-token', '')
     const [verticalsSelected, setVerticalsSelected] = useState([])
     const [loader, setLoader] = useState(false)
     const [submit, setSubmit] = useState(true)
-    const [verticals, setVerticals] = useState([
-        { key: 1, value: 'ASIC (IVF Clinics)' },
-        { key: 2, value: 'NABH SHCO' },
-        { key: 3, value: 'Medical Laboratories' },
-        { key: 4, value: 'ISO 9001:2015' }
-    ])
+    const [verticals, setVerticals] = useState([])
 
     useEffect(() => {
-        savev({verticalName: "ver1", verticalDocsFolderURI: "https://ww.ff.com"}, { 'Authorization': jwt })
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
         get()
             .then(res => {
                 console.log(res)
@@ -59,7 +47,7 @@ const UserForm = ({ toggleUserForm }) => {
             .catch(err => {
                 console.log(err)
             })
-    });
+    }, []);
 
     const [verticalsClicked, setVerticalsClicked] = useState(new Array(verticals.length).fill(false))
 
@@ -86,13 +74,12 @@ const UserForm = ({ toggleUserForm }) => {
         save(values, { 'Authorization': jwt })
             .then(response => {
                 console.log(response)
-                if (response.status === 201) {
-                    toggleUserForm()
-                    setLoader(false)
-                } else {
+                if (response.status === 201)
+                    toggleForm()
+                else
                     setSaveUserError('Something went wrong!')
-                    setLoader(false)
-                }
+
+                setLoader(false)
                 setSubmit(true)
             })
             .catch(error => {
@@ -101,7 +88,6 @@ const UserForm = ({ toggleUserForm }) => {
                     : 'Something went wrong! Contact Administrator')
                 setLoader(false)
                 setSubmit(true)
-                toggleUserForm()
             })
         formik.setSubmitting(false)
     }
@@ -152,7 +138,6 @@ const UserForm = ({ toggleUserForm }) => {
                         <Vertical
                             key={vertical.key}
                             index={index}
-                            clicked={verticalsClicked[index]}
                             onClick={verticalClicked}
                             title={vertical.value}>
                         </Vertical>

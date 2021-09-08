@@ -33,9 +33,9 @@ const Dashboard = props => {
         <div>
             <h1 className="title">Dashboard</h1>
             <Option title='Create User' onClick={toggleUserForm} />
-            {showUserForm && <UserForm toggleUserForm />}
+            {showUserForm && <UserForm toggleForm = {toggleUserForm} />}
             <Option title='Add a vertical' onClick={toggleVerticalForm} />
-            {showVerticalForm && <VerticalForm />}
+            {showVerticalForm && <VerticalForm toggleForm = {toggleVerticalForm} />}
             <Option title='View Users Details' onClick={toggleUsersTable} />
             {showUsersTable && <UsersTable />}
         </div>

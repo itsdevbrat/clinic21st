@@ -1,16 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { React, useState } from 'react'
 
-const Vertical = ({ index, clicked, onClick, title }) => {
+const Vertical = ({ index, onClick, title }) => {
 
     const clickedStyle = {
         backgroundColor: '#4c64ea',
         color: '#fff'
     }
 
+    const [clicked, setClicked] = useState(false)
+
+    const buttonClicked = () => {
+        setClicked(true)
+        onClick(index)
+    }
+
     return (
         <div className="padded-box vertical"
-            onClick={() => onClick(index)}
+            onClick={buttonClicked}
             style={clicked ? clickedStyle : null}>
             {title}
         </div>
