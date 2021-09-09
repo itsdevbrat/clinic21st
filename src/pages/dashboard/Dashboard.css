@@ -50,6 +50,8 @@
 
 .title {
     margin: 40px 4vw;
+    display:flex;   
+    justify-content: space-between; 
 }
 
 .dashboard-form {
