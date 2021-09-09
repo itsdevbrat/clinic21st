@@ -160,7 +160,7 @@ const UsersTable = props => {
 
                 <div className='flex-space-around'>
                     <Button variant="outlined" onClick={prevPage}>Previous</Button>
-                    <Button variant="outlined" onClick={nextPage}>Next</Button>
+                    {table.length > 0 && <Button variant="outlined" onClick={nextPage}>Next</Button>}
                 </div>
 
             </TableContainer>

@@ -19,7 +19,7 @@
 
     --loginLabelBackgroundColor: #f0f2f5;
 
-    --loginSubmitBackgroundColor: #4c64ea;
+    --loginSubmitBackgroundColor: #004EFF;
     --loginSubmitColor: #eee;
     --loginSubmitHoverBackgroundColor: #3852e7;
     --buttonBackgroundColor: #32CD32;
@@ -33,6 +33,7 @@
     margin: 40px 4vw 10px 4vw;
     border-radius: 5px;
     font-size: 1.2em;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     background-color: #fff;
 }
 
