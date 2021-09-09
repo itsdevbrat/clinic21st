@@ -46,7 +46,7 @@ const Dashboard = props => {
         <div>
             <div className="title">
                 <h1>Dashboard</h1>
-            {!jwt && <Button color='secondary' onClick={logout}>Sign out</Button>}
+            {jwt && <Button color='secondary' onClick={logout}>Sign out</Button>}
             </div>
             <Option title='Create User' onClick={toggleUserForm} />
             {showUserForm && <UserForm toggleForm = {toggleUserForm} />}

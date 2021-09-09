@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField'
 import DisableButton from '../disableButton/disableButton'
 import { get, update, search } from '../../network/UserService';
 import Loader from '../../components/loader/Loader'
+import useLocalStorage from '../../customHooks/useLocalStorage'
 import './UsersTable.css'
 
 const UsersTable = props => {
@@ -20,10 +21,11 @@ const UsersTable = props => {
     const [query, setQuery] = useState('');
     const [loader, setLoader] = useState(false);
     const [forceUpdateCounter, setForceUpdateCounter] = useState(0);
+    const [jwt] = useLocalStorage('auth-token', '')
 
     const getUsers = (page) => {
         setLoader(true)
-        get(page)
+        get(page, {'Authorization': jwt})
             .then(res => {
                 console.log(res)
                 console.log(res.data)
@@ -159,11 +161,12 @@ const UsersTable = props => {
                 {loader && <Loader />}
 
                 <div className='flex-space-around'>
-                    <Button variant="outlined" onClick={prevPage}>Previous</Button>
+                    {page!==0 && <Button variant="outlined" onClick={prevPage}>Previous</Button>}
                     {table.length > 0 && <Button variant="outlined" onClick={nextPage}>Next</Button>}
                 </div>
 
             </TableContainer>
+            <div style={{'height': '80px'}}></div>
         </>
     )
 
