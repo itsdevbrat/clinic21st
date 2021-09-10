@@ -14,7 +14,7 @@
     --loginBorderRadus: 0.25rem;
     --loginColor: #eee;
 
-    --loginInputBackgroundColor: #f0f2f5;
+    --loginInputBackgroundColor: #fff;
     --loginInputHoverBackgroundColor: #dae0e7;
 
     --loginLabelBackgroundColor: #f0f2f5;
@@ -22,7 +22,7 @@
     --loginSubmitBackgroundColor: #004EFF;
     --loginSubmitColor: #eee;
     --loginSubmitHoverBackgroundColor: #3852e7;
-    --buttonBackgroundColor: #32CD32;
+    --buttonBackgroundColor: #7FFF00;
 
 }
 
@@ -56,7 +56,7 @@
 
 .dashboard-form {
     background: var(--loginInputBackgroundColor);
-    padding: 20px 2vw;
+    padding: 4vw 4vw;
     margin: 4px 4vw;
     border-radius: 5px;
     font-size: 1.2em;

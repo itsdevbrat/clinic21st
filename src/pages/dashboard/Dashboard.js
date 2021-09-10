@@ -35,10 +35,11 @@ const Dashboard = props => {
         window.location.href = 'http://localhost:3000/login'
     }
 
-    // useEffect(()=>{
-    //     if(!jwt)
-    //         logout()
-    // }, [])
+    useEffect(() => {
+        if (!jwt) {
+            window.location.href = 'http://localhost:3000/login'
+        }
+    }, [])
 
 
 
@@ -46,12 +47,12 @@ const Dashboard = props => {
         <div>
             <div className="title">
                 <h1>Dashboard</h1>
-            {jwt && <Button color='secondary' onClick={logout}>Sign out</Button>}
+                {jwt && <Button color='secondary' onClick={logout}>Sign out</Button>}
             </div>
             <Option title='Create User' onClick={toggleUserForm} />
-            {showUserForm && <UserForm toggleForm = {toggleUserForm} />}
+            {showUserForm && <UserForm toggleForm={toggleUserForm} />}
             <Option title='Add a vertical' onClick={toggleVerticalForm} />
-            {showVerticalForm && <VerticalForm toggleForm = {toggleVerticalForm} />}
+            {showVerticalForm && <VerticalForm toggleForm={toggleVerticalForm} />}
             <Option title='View Users Details' onClick={toggleUsersTable} />
             {showUsersTable && <UsersTable />}
         </div>

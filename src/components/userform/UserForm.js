@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { save } from '../../network/UserService';
-import { get, savev } from '../../network/VerticalService';
+import { getVertical } from '../../network/VerticalService';
 import useLocalStorage from '../../customHooks/useLocalStorage'
 
 const validationSchema = yup.object({
@@ -33,7 +33,7 @@ const UserForm = ({ toggleForm }) => {
     const [verticals, setVerticals] = useState([])
 
     useEffect(() => {
-        get()
+        getVertical({ 'Authorization': jwt })
             .then(res => {
                 console.log(res)
                 console.log(res.data)
@@ -148,7 +148,7 @@ const UserForm = ({ toggleForm }) => {
             {loader && <Loader />}
             {
                 submit &&
-                <Button type='submit' className='dashboard-button'>Submit</Button>
+                <Button type='submit' className='dashboard-button'>Save</Button>
             }
             {saveUserError && saveUserError}
         </form>

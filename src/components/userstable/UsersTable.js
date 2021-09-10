@@ -49,7 +49,7 @@ const UsersTable = props => {
     }
 
     const updateUser = (user) => {
-        update(user)
+        update(user, {'Authorization': jwt})
             .then(res => {
                 console.log("then",res)
                 console.log(res.data)
@@ -61,7 +61,7 @@ const UsersTable = props => {
     }
 
     const searchUser = () => {
-        search(query)
+        search(query, {'Authorization': jwt})
             .then(res => {
                 console.log(res)
                 console.log(res.data)

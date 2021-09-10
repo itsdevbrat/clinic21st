@@ -33,11 +33,11 @@ const Signin = props => {
     const signInUser = (values) => {
         login(values)
             .then(response => {
+                setJwt(response.data)
                 console.log(response)
                 response.status === 200
                     ? history.push('/')
                     : setLoginError('Something went wrong! Contact Administrator')
-                setJwt(response.data)
             })
             .catch(error => {
                 console.log(error)

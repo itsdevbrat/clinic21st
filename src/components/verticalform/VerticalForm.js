@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import useLocalStorage from '../../customHooks/useLocalStorage'
-import { savev } from '../../network/VerticalService'
+import { saveVertical } from '../../network/VerticalService'
 
 const validationSchema = yup.object({
     verticalName: yup
@@ -25,13 +25,13 @@ const VerticalForm = ({ toggleForm }) => {
     const [jwt] = useLocalStorage('auth-token', '')
     const [submit, setSubmit] = useState(true)
 
-    const saveVertical = values => {
+    const save = values => {
         setLoader(true)
         setSubmit(false)
-        savev(values, { 'Authorization': jwt })
+        saveVertical(values, { 'Authorization': jwt })
             .then(response => {
                 console.log(response)
-                if (response.status === 200)
+                if (response.status === 201)
                     toggleForm()
                 else
                     setSaveVerticalError('Something went wrong!')
@@ -46,7 +46,6 @@ const VerticalForm = ({ toggleForm }) => {
                     : 'Something went wrong! Contact Administrator')
                 setLoader(false)
                 setSubmit(true)
-                toggleForm()
             })
         formik.setSubmitting(false)
     }
@@ -56,7 +55,7 @@ const VerticalForm = ({ toggleForm }) => {
             verticalName: '',
             driveLink: '',
         },
-        onSubmit: values => { saveVertical(values) },
+        onSubmit: values => { save(values) },
         validationSchema: validationSchema
     });
 
@@ -74,7 +73,7 @@ const VerticalForm = ({ toggleForm }) => {
             {loader && <Loader />}
             {
                 submit &&
-                <Button type='submit' className='dashboard-button'>Submit</Button>
+                <Button type='submit' className='dashboard-button'>Save</Button>
             }
             {saveVerticalError && saveVerticalError}
         </form>
