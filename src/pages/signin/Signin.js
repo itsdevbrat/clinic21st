@@ -4,24 +4,26 @@ import { useFormik } from 'formik';
 import { login } from '../../network/UserService';
 import { useHistory } from "react-router-dom";
 import useLocalStorage from '../../customHooks/useLocalStorage'
+import Loader from '../../components/loader/Loader'
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
     email: yup
-      .string('Enter your email')
-      .email('Enter a valid email')
-      .required('Email is required'),
+        .string('Enter your email')
+        .email('Enter a valid email')
+        .required('Email is required'),
     password: yup
-      .string('Enter your password')
-      .min(3, 'Password should be of minimum 3 characters length')
-      .required('Password is required'),
-  });
+        .string('Enter your password')
+        .min(3, 'Password should be of minimum 3 characters length')
+        .required('Password is required'),
+});
 
 const Signin = props => {
 
     const [loginError, setLoginError] = useState()
     const history = useHistory()
     const [jwt, setJwt] = useLocalStorage('auth-token', '')
+    const [loader, setLoader] = useState(false)
 
 
     const formik = useFormik({
@@ -31,16 +33,19 @@ const Signin = props => {
     });
 
     const signInUser = (values) => {
+        setLoader(true)
         login(values)
             .then(response => {
                 setJwt(response.data)
                 console.log(response)
+                setLoader(false)
                 response.status === 200
                     ? history.push('/')
                     : setLoginError('Something went wrong! Contact Administrator')
             })
             .catch(error => {
                 console.log(error)
+                setLoader(false)
                 setLoginError(error.response && error.response.data ? error.response.data : 'Something went wrong! Contact Administrator')
             })
         formik.setSubmitting(false)
@@ -74,9 +79,10 @@ const Signin = props => {
                             placeholder="Password" required />
                     </div>
                     {formik.errors.password}
-                    <div className="form__field">
-                        <input type="submit" value="Sign In" disabled={formik.isSubmitting} />
-                    </div>
+                    {loader ? <Loader /> :
+                        <div className="form__field">
+                            <input type="submit" value="Sign In" disabled={formik.isSubmitting} />
+                        </div>}
                     {loginError}
                 </form>
             </div>
