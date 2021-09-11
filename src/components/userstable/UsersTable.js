@@ -25,21 +25,11 @@ const UsersTable = props => {
 
     const getUsers = (page) => {
         setLoader(true)
-        get(page, {'Authorization': jwt})
+        get(page, { 'Authorization': jwt })
             .then(res => {
                 console.log(res)
                 console.log(res.data)
-                setTable(res.data.map((user, idx) => {
-                    return {
-                        key: idx,
-                        userName: user.userName,
-                        password: user.password,
-                        phoneNumber: user.phoneNumber,
-                        email: user.email,
-                        enabled: user.enabled,
-                        createdDate: user.createdDate
-                    }
-                }))
+                setUsersTable(res.data)
                 setLoader(false)
             })
             .catch(err => {
@@ -49,9 +39,9 @@ const UsersTable = props => {
     }
 
     const updateUser = (user) => {
-        update(user, {'Authorization': jwt})
+        update(user, { 'Authorization': jwt })
             .then(res => {
-                console.log("then",res)
+                console.log("then", res)
                 console.log(res.data)
                 setForceUpdateCounter(forceUpdateCounter + 1)
             })
@@ -61,19 +51,11 @@ const UsersTable = props => {
     }
 
     const searchUser = () => {
-        search(query, {'Authorization': jwt})
+        search(query, { 'Authorization': jwt })
             .then(res => {
                 console.log(res)
                 console.log(res.data)
-                setTable(res.data.map((user, idx) => {
-                    return {
-                        key: idx,
-                        userName: user.userName,
-                        password: user.password,
-                        phoneNumber: user.phoneNumber,
-                        createdDate: user.createdDate
-                    }
-                }))
+                setUsersTable(res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -93,6 +75,21 @@ const UsersTable = props => {
 
     const handleChange = (e) => {
         setQuery(e.target.value)
+    }
+
+
+    const setUsersTable = (data) => {
+        setTable(data.map((user, idx) => {
+            return {
+                key: idx,
+                userName: user.userName,
+                password: user.password,
+                phoneNumber: user.phoneNumber,
+                email: user.email,
+                enabled: user.enabled,
+                createdDate: user.createdDate
+            }
+        }))
     }
 
     useEffect(() => {
@@ -161,12 +158,12 @@ const UsersTable = props => {
                 {loader && <Loader />}
 
                 <div className='flex-space-around'>
-                    {page!==0 && <Button variant="outlined" onClick={prevPage}>Previous</Button>}
+                    {page !== 0 && <Button variant="outlined" onClick={prevPage}>Previous</Button>}
                     {table.length > 0 && <Button variant="outlined" onClick={nextPage}>Next</Button>}
                 </div>
 
             </TableContainer>
-            <div style={{'height': '80px'}}></div>
+            <div style={{ 'height': '80px' }}></div>
         </>
     )
 

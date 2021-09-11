@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from "react-router-dom";
 import Option from '../../components/option/Option'
 import UserForm from '../../components/userform/UserForm'
 import VerticalForm from '../../components/verticalform/VerticalForm'
@@ -14,6 +15,8 @@ const Dashboard = props => {
     const [showVerticalForm, setShowVerticalForm] = useState(false)
     const [showUsersTable, setShowUsersTable] = useState(false)
     const [jwt, setJwt] = useLocalStorage('auth-token', '')
+    const history = useHistory()
+
 
     let toggleUserForm = () => {
         console.log('toggling form')
@@ -32,12 +35,12 @@ const Dashboard = props => {
 
     let logout = () => {
         setJwt('')
-        window.location.href = 'http://localhost:3000/login'
+        history.push('/login')
     }
 
     useEffect(() => {
         if (!jwt) {
-            window.location.href = 'http://localhost:3000/login'
+            history.push('/login')
         }
     }, [])
 
