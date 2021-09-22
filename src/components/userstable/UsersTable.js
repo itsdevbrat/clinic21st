@@ -118,6 +118,8 @@ const UsersTable = props => {
 
                             <TableCell>Name</TableCell>
 
+                            <TableCell>Email</TableCell>
+
                             <TableCell>Password</TableCell>
 
                             <TableCell>Action</TableCell>
@@ -137,6 +139,7 @@ const UsersTable = props => {
                                     <TableCell>{row.phoneNumber}</TableCell>
                                     <TableCell>{row.createdDate.split('T')[0]}</TableCell>
                                     <TableCell>{row.userName} </TableCell>
+                                    <TableCell>{row.email}</TableCell>
                                     <TableCell>{row.password}</TableCell>
                                     {row.enabled
                                         ? <DisableButton onClick={() => {
