@@ -67,7 +67,7 @@ const UserForm = ({ toggleForm }) => {
 
     const saveUser = (values, verticalsSelected) => {
         values.verticals = verticalsSelected
-        values.birthDate = values.birthDate.includes(' 00:00:00')  ? values.birthDate : values.birthDate + ' 00:00:00'
+        values.birthDate = values.birthDate.includes('T00:00:00')  ? values.birthDate : values.birthDate + 'T00:00:00'
         console.log(values)
         console.log(jwt)
         setLoader(true)
