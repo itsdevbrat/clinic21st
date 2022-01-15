@@ -66,7 +66,7 @@ const VerticalForm = ({ toggleForm }) => {
                 value={formik.values.verticalName} onChange={formik.handleChange}
                 error={formik.touched.verticalName && Boolean(formik.errors.verticalName)}
                 helperText={formik.errors.verticalName === '' ? '' : formik.errors.verticalName} />
-            <TextField name="driveLink" type="text" placeholder="Google drive folder link" margin='dense' variant='outlined'
+            <TextField name="driveLink" type="text" multiline placeholder="Google drive folder link" margin='dense' variant='outlined'
                 value={formik.values.driveLink} onChange={formik.handleChange}
                 error={formik.touched.driveLink && Boolean(formik.errors.driveLink)}
                 helperText={formik.errors.driveLink === '' ? '' : formik.errors.driveLink} />
