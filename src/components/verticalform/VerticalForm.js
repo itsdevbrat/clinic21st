@@ -31,7 +31,7 @@ const VerticalForm = ({ toggleForm }) => {
         saveVertical(values, { 'Authorization': jwt })
             .then(response => {
                 console.log(response)
-                if (response.status === 201)
+                if (response.status === 200)
                     toggleForm()
                 else
                     setSaveVerticalError('Something went wrong!')
